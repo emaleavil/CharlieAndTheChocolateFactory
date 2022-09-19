@@ -1,0 +1,24 @@
+buildscript {
+    apply from: "${getRootDir().absolutePath}/scripts/dependencies.gradle"
+}
+
+plugins {
+    id 'com.android.application' version '7.2.2' apply false
+    id 'com.android.library' version '7.2.2' apply false
+    id 'org.jetbrains.kotlin.android' version '1.7.0' apply false
+    id 'org.jlleitschuh.gradle.ktlint' version '10.2.1' apply false
+    id 'com.google.dagger.hilt.android' version '2.43.2' apply false
+}
+
+// This line is needed because gradle not support import from outside build.gradle files
+// If file was gradle.kts add: import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+ext.ReporterType = org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+ext.GenerateReportsTask = org.jlleitschuh.gradle.ktlint.tasks.GenerateReportsTask
+
+allprojects {
+    apply from: "${getRootDir().absolutePath}/scripts/ktlint.gradle"
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,23 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "CharlieApp"
+include ':app'
+include ':data'
+
+rootProject.setBuildFileName("${rootProject.name.toLowerCase()}.gradle")
+
+rootProject.children.forEach {subproject ->
+    subproject.setBuildFileName("${subproject.name}.gradle")
+}

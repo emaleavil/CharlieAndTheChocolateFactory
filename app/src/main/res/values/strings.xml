@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Charlie and chocolate factory</string>
+
+    <string name="loader_waiting_text">"Please wait, we're retrieving data…"</string>
+    <string name="empty_title">No characters available</string>
+    <string name="empty_image_description">Empty data image</string>
+    <string name="error_title">Something went wrong</string>
+    <string name="error_image_description">Error image</string>
+    <string name="retry_button_title">Retry</string>
+
+
+    <string name="characters_search_placeholder">Search</string>
+    <string name="characters_image_content_description">Character image</string>
+    <string name="characters_gender_description">Character gender Icon</string>
+
+
+    <string name="detail_email_title">Email:</string>
+    <string name="detail_profession_title">Profession:</string>
+    <string name="detail_country_title">Country:</string>
+</resources>

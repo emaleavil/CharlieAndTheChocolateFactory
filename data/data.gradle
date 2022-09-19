@@ -1,0 +1,30 @@
+apply from: "${getRootDir().absolutePath}/scripts/android-library.gradle"
+
+android {
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true",
+                        "room.expandProjection":"true"]
+            }
+        }
+    }
+}
+dependencies {
+
+    implementation androidX.coreKtx
+    implementation androidX.room
+    implementation androidX.roomCoroutines
+    implementation androidX.roomPaging
+    kapt androidX.roomCompiler
+    implementation externalLibs.retrofit
+    implementation externalLibs.retrofitLoggingInterceptor
+    implementation externalLibs.gson
+    implementation externalLibs.retrofitGson
+    // Paging
+    implementation "androidx.paging:paging-common:$versions.paging"
+
+    testImplementation tests.mockWebServer
+}

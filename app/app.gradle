@@ -1,0 +1,82 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk config.compile
+
+    defaultConfig {
+        applicationId "com.eeema.android.charlieapp"
+        minSdk config.min
+        targetSdk config.target
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+
+    implementation project(':data')
+    implementation androidX.coreKtx
+    implementation androidX.compose.ui
+    implementation androidX.compose.preview
+    implementation androidX.compose.material
+    implementation androidX.compose.activity
+    implementation androidX.compose.accompanist.uiSystemController
+    implementation androidX.compose.accompanist.navigation
+    implementation androidX.compose.navigation
+    debugImplementation androidX.compose.uiTooling
+    debugImplementation tests.uiTestManifest
+
+    // Paging
+    implementation "androidx.paging:paging-compose:$versions.pagingCompose"
+
+    implementation androidX.compose.coil
+    implementation hiltDependencies.android
+    implementation androidX.compose.hiltNavigation
+    kapt hiltDependencies.compiler
+
+    testImplementation tests.junit
+    testImplementation tests.mockK
+    testImplementation tests.truth
+
+    androidTestImplementation tests.extJunit
+    androidTestImplementation tests.espresso
+    androidTestImplementation tests.uiTestJunit
+    androidTestImplementation tests.hilt
+    kaptAndroidTest hiltDependencies.compiler
+}

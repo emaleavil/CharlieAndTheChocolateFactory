@@ -1,0 +1,67 @@
+name: Android CI
+
+on:
+  push: # Executes this workflow when push is done for whatever branch
+  pull_request: # Executed this workflow when pull request to develop is created.
+    branches:
+      - develop
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+
+      - name: Copy gradle properties file
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Set up our JDK environment
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Run Linter analysis
+        run: ./gradlew ktlintCheck
+
+      - name: Upload Linter reports
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: ktlint_reports
+          path: build/reports/ktlint/
+
+      - name: Run unit tests
+        run: ./gradlew testDebugUnitTest
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: TestReports
+          path: ./**/build/reports/tests/testDebugUnitTest/
+
+      - name: Build the app
+        run: ./gradlew assembleRelease
+
+      - name: Sign APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.KEYSTORE }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: release.apk
+          path: ${{steps.sign.outputs.signedReleaseFile}}

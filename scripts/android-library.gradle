@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdk config.compile
+
+    defaultConfig {
+        minSdk config.min
+        targetSdk config.target
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+    sourceSets {
+        test {
+            resources.srcDirs += ['src/test/resources']
+        }
+    }
+}
+
+dependencies {
+    implementation hiltDependencies.core
+    implementation hiltDependencies.android
+    kapt hiltDependencies.compiler
+
+    testImplementation tests.junit
+    testImplementation tests.mockK
+    testImplementation tests.truth
+    testImplementation tests.coroutines
+    testImplementation tests.coreTesting
+}
