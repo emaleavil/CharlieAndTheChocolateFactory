@@ -47,6 +47,10 @@ ext {
                     uiTooling     : "androidx.compose.ui:ui-tooling:$versions.compose"
             ],
             coreKtx       : "androidx.core:core-ktx:$versions.coreKtx",
+            paging: [
+                    common : "androidx.paging:paging-common:$versions.paging",
+                    compose: "androidx.paging:paging-compose:$versions.pagingCompose"
+            ],
             room          : "androidx.room:room-runtime:$versions.room",
             roomCompiler  : "androidx.room:room-compiler:$versions.room",
             roomCoroutines: "androidx.room:room-ktx:$versions.room",

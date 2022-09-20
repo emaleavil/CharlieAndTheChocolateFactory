@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    package="com.eeema.android.data"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Required for testing purposes with MockWebServer -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        tools:node="merge"
+        android:usesCleartextTraffic="true" />
+
+</manifest>

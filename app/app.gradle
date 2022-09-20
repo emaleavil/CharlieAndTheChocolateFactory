@@ -62,8 +62,7 @@ dependencies {
     debugImplementation androidX.compose.uiTooling
     debugImplementation tests.uiTestManifest
 
-    // Paging
-    implementation "androidx.paging:paging-compose:$versions.pagingCompose"
+    implementation androidX.paging.compose
 
     implementation androidX.compose.coil
     implementation hiltDependencies.android
