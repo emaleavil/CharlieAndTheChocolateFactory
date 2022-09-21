@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -63,11 +64,11 @@ fun DetailContent(character: Character) {
                 contentDescription = stringResource(R.string.characters_image_content_description),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .height(300.dp)
-                    .fillMaxSize()
+                    .aspectRatio(1f)
                     .padding(16.dp)
+                    .height(300.dp)
+                    .fillMaxWidth()
                     .clip(CircleShape)
-                    .aspectRatio(1f),
             )
             Spacer(Modifier.height(8.dp))
             Text(
